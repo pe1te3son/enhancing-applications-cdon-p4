@@ -2,7 +2,7 @@
 
 # Variables
 resourceGroup="acdnd-c4-project"
-location="westus2"
+location="eastus2"
 osType="UbuntuLTS"
 vmssName="udacity-vmss"
 adminName="udacityadmin"
@@ -14,7 +14,9 @@ nsgName="$vmssName-nsg"
 vnetName="$vmssName-vnet"
 subnetName="$vnetName-subnet"
 probeName="tcpProbe"
-vmSize="Standard_B1ls"
+# Default vmSize is not enough for pip3 to install packages but it's required for  cluster
+# vmSize="Standard_B1ls"
+vmSize="Standard_D2s_v3"
 storageType="Standard_LRS"
 
 # Create resource group
