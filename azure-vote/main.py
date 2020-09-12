@@ -28,7 +28,7 @@ instrumentationKey = "InstrumentationKey=685521b3-dd14-4bc9-86a0-b6bebf5630de"
 # DONE: Setup logger
 logger = logging.getLogger(__name__)
 logger.addHandler(AzureEventHandler(connection_string=instrumentationKey))
-logger.setLevel(logging.INFO)
+# logger.setLevel(logging.INFO)
 logger.info('Hello, World!')
 # Metrics
 # DONE: Setup exporter
@@ -92,13 +92,13 @@ def index():
         vote1 = r.get(button1).decode('utf-8')
         # DONE: use tracer object to trace cat vote
         # maybe pass vote1
-        with tracer.span(name='Dog vote') as span:
-            print("Cat vote")
+        with tracer.span(name='Cat vote'):
+            logger.warning('Cat vote')
         vote2 = r.get(button2).decode('utf-8')
         # DONE: use tracer object to trace dog vote
 
-        with tracer.span(name='Dog vote') as span:
-            print("Dog vote")
+        with tracer.span(name='Dog vote'):
+            logger.warning('Dog vote')
 
         # Return index with values
         return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
