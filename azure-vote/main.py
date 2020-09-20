@@ -23,7 +23,7 @@ from opencensus.trace.samplers import ProbabilitySampler
 from opencensus.ext.azure.trace_exporter import AzureExporter
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.azure.log_exporter import AzureEventHandler
-instrumentationKey = "InstrumentationKey=685521b3-dd14-4bc9-86a0-b6bebf5630de"
+instrumentationKey = "InstrumentationKey=d95f4af1-0b52-4802-83d4-45eaa5d11b18;IngestionEndpoint=https://eastus2-0.in.applicationinsights.azure.com/"
 # Logging
 # DONE: Setup logger
 logger = logging.getLogger(__name__)
@@ -88,17 +88,17 @@ def index():
 
     if request.method == 'GET':
 
-        # Get current values
-        vote1 = r.get(button1).decode('utf-8')
-        # DONE: use tracer object to trace cat vote
-        # maybe pass vote1
-        with tracer.span(name='Cat vote'):
-            logger.warning('Cat vote')
-        vote2 = r.get(button2).decode('utf-8')
-        # DONE: use tracer object to trace dog vote
+        # TODO: use tracer object to trace cat vote
+        with tracer.span(name="cat"):
+            vote1 = r.get(button1).decode('utf-8')
+            logger.warning(vote1)
 
-        with tracer.span(name='Dog vote'):
-            logger.warning('Dog vote')
+        vote2 = r.get(button2).decode('utf-8')
+
+        # TODO: use tracer object to trace dog vote
+        with tracer.span(name="dog"):
+            vote2 = r.get(button2).decode('utf-8')
+            logger.warning(vote2)
 
         # Return index with values
         return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
